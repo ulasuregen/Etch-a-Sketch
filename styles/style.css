@@ -8,9 +8,11 @@
     width: 100vw;
     height: 100vh;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
 .sub-container{
-    width: 25%;
-    height: 25%;
+    width: calc(min(100vw,100vh) * 0.25);
+    height: calc(min(100vw,100vh) * 0.25);
 }
