@@ -12,7 +12,7 @@
 
 .white-box{
     width:  calc(0.5 * (max(100vh, 100vw) - min(100vh, 100vw)));
-    height: calc(0.5 * (max(100vh, 100vw) - min(100vh, 100vw)));  
+    /*height: calc(0.5 * (max(100vh, 100vw) - min(100vh, 100vw)))*/;  
 }
 
 .container{
@@ -29,18 +29,16 @@
     transition: all 1s;
 }
 
-.blackbg{
-    background-color: black;
-}
-
-.whitebg{
-    background-color: white;
-}
-
 .boxnum{
     height: 10vh;
     width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@media screen and (max-aspect-ratio: 1/1) {
+  .white-box {
+    display: none;
+  }
 }
