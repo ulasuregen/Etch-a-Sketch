@@ -6,6 +6,9 @@ let mouseDown = false;
 
 let color_location = [125, 125, 125];
 
+const wormOn = new CustomEvent("wormOn");
+
+
 for(i = 0; i < box_num * box_num; i++){
     createSquare(box_num);
 }
@@ -26,8 +29,11 @@ function createSquare(box_num) {
     container.appendChild(sub_container);
     sub_container.classList.add('whitebg');
 
-    addEvent(sub_container, 'mouseenter', false);
-    addEvent(sub_container, 'touchmove', false);
+    ['mouseenter', 'touchmove', 'wormOn'].forEach( (ev) => {
+        addEvent(sub_container, ev, false);
+    });
+
+    table = Array.from(document.querySelectorAll(".sub-container"));
 }
 
 document.addEventListener('mousedown', () => {
@@ -49,11 +55,6 @@ number_button.addEventListener('click', (e) => {
 })
 
 
-['mousemove', 'touchmove'].forEach( (ev) => {
-    addEvent(ev);
-});
-
-
 function addEvent(element, ev, onClick) {
     element.addEventListener(ev, () => {
     onClick = onclick ? mouseDown : true; 
@@ -62,7 +63,6 @@ function addEvent(element, ev, onClick) {
             for(let i = 0; i < 3; i++){color_location[i] += step[i];}
 
             changeBackground(element, color_location);
-            console.log(color_location.map(Math.round).join(','));
             //element.classList.remove('whitebg');
             //element.classList.add('blackbg'); 
         
