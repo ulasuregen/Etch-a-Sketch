@@ -4,6 +4,8 @@ const inputBox = document.querySelector('.num-input');
 let box_num = 16;
 let mouseDown = false;
 
+let color_location = [125, 125, 125];
+
 for(i = 0; i < box_num * box_num; i++){
     createSquare(box_num);
 }
@@ -37,7 +39,8 @@ document.addEventListener('mouseup', () => {
 })
 
 number_button.addEventListener('click', (e) => {
-    box_num = inputBox.value;
+    box_num = getInput(inputBox);
+
     deleteTable(container);
 
     for(i = 0; i < box_num * box_num; i++){
@@ -55,13 +58,59 @@ function addEvent(element, ev, onClick) {
     element.addEventListener(ev, () => {
     onClick = onclick ? mouseDown : true; 
     if(onClick){  
-            element.classList.remove('whitebg');
-            element.classList.add('blackbg'); 
+            const step = randomVector(20);
+            for(let i = 0; i < 3; i++){color_location[i] += step[i];}
+
+            changeBackground(element, color_location);
+            console.log(color_location.map(Math.round).join(','));
+            //element.classList.remove('whitebg');
+            //element.classList.add('blackbg'); 
         
             setTimeout( () => {
-                element.classList.remove('blackbg');
-                element.classList.add('whitebg'); 
+                changeBackground(element);
+                //element.classList.remove('blackbg');
+                //element.classList.add('whitebg'); 
             }, 1000)
         }
 });
+}
+
+function randomVector(magnitude = 1){
+    const theta = Math.PI * Math.random();
+    const phi   = 2 * Math.PI * Math.random();
+
+    const cos_theta = Math.cos(theta);
+
+    const x = cos_theta * Math.cos(phi) * magnitude;
+    const y = cos_theta * Math.sin(phi) * magnitude;
+    const z = Math.sin(theta) * magnitude;
+    let vector = [x,y,z];
+    
+    let sign_vector = [];
+    for(let i = 0; i < 3; i++){
+        let new_location = color_location[i] + vector[i];
+        let sign = new_location < 0 || new_location > 255 ? -1 : 1;
+        sign_vector.push(vector[i] * sign); 
+    }
+
+    return sign_vector;
+}
+
+function changeBackground(element, color_palet = [255,255,255]){
+    element.style.background = 'rgba(' + color_palet.join(',') + ')';
+}
+
+
+function getInput(inputBox){
+    const value = inputBox.value;
+
+    if(value > 100){
+        inputBox.value = 100;
+        return 100;
+    }else if(value < 10){
+        inputBox.value = 10;
+        return 10
+    }else{
+        return value;
+    }
 }
