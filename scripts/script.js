@@ -24,17 +24,8 @@ function createSquare(box_num) {
     container.appendChild(sub_container);
     sub_container.classList.add('whitebg');
 
-    sub_container.addEventListener('mouseenter', (e) => {
-        if(mouseDown){  
-            sub_container.classList.remove('whitebg');
-            sub_container.classList.add('blackbg'); 
-        
-            setTimeout( () => {
-                sub_container.classList.remove('blackbg');
-                sub_container.classList.add('whitebg'); 
-            }, 1000)
-        }
-    })
+    addEvent(sub_container, 'mouseenter', false);
+    addEvent(sub_container, 'touchmove', false);
 }
 
 document.addEventListener('mousedown', () => {
@@ -53,3 +44,24 @@ number_button.addEventListener('click', (e) => {
     createSquare(box_num);
 }
 })
+
+
+['mousemove', 'touchmove'].forEach( (ev) => {
+    addEvent(ev);
+});
+
+
+function addEvent(element, ev, onClick) {
+    element.addEventListener(ev, () => {
+    onClick = onclick ? mouseDown : true; 
+    if(onClick){  
+            element.classList.remove('whitebg');
+            element.classList.add('blackbg'); 
+        
+            setTimeout( () => {
+                element.classList.remove('blackbg');
+                element.classList.add('whitebg'); 
+            }, 1000)
+        }
+});
+}
