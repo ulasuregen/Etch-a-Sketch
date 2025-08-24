@@ -26,4 +26,21 @@
 .sub-container{
     width: calc(min(100vw,100vh) * 1/16);
     height: calc(min(100vw,100vh) * 1/16);
+    transition: all 1s;
+}
+
+.blackbg{
+    background-color: black;
+}
+
+.whitebg{
+    background-color: white;
+}
+
+.boxnum{
+    height: 10vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
