@@ -1,7 +1,7 @@
 const container = document.querySelector('.container');
 const number_button = document.querySelector('.number');
 const inputBox = document.querySelector('.num-input');
-let box_num = 16;
+let box_num = 50;
 let mouseDown = false;
 
 let color_location = [125, 125, 125];
